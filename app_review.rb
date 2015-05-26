@@ -36,10 +36,15 @@ class AppReview
 
       (0..post_count-1).each.map do |node_num|
         <<-EOS
+rating: #{rating(review_html.css('div.current-rating')[node_num].get('style'))}
 #{review_html.css('span.review-date')[node_num].text}:#{review_html.css('div.review-body')[node_num].children[1].text}
 #{review_html.css('div.review-body')[node_num].children[2].text}
         EOS
       end
+    end
+
+    def rating(style)
+      '*' * (style.scan(/[0-9]+/).first.to_i / 20)
     end
 
   end
@@ -71,7 +76,7 @@ class AppReview
       # entries[0] is top article regarding Application.
       feed.items[1..post_count].each.map do |entry|
         <<-EOS
-#{entry.updated.strftime('%Y-%m-%d').force_encoding('UTF-8')}: rating #{entry.im_rating}
+#{entry.updated.strftime('%Y-%m-%d').force_encoding('UTF-8')}: rating #{'*' * entry.im_rating.to_i}
 #{entry.title.force_encoding('UTF-8')}#{entry.content.force_encoding('UTF-8')}
         EOS
       end
