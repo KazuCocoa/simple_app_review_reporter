@@ -60,13 +60,18 @@ class AppReview
       http = Net::HTTP.new(uri.host, uri.port)
 
       response = http.get(uri.path)
+
+      # rating
+      SimpleRSS.item_tags << 'im:rating'
+      SimpleRSS.item_tags << 'im:version'
+
       feed = SimpleRSS.parse response.body
 
       return ["no items in feed at #{Time.now}"] if feed.items.length == 0
       # entries[0] is top article regarding Application.
       feed.items[1..post_count].each.map do |entry|
         <<-EOS
-#{entry.updated.strftime('%Y-%m-%d').force_encoding('UTF-8')}:
+#{entry.updated.strftime('%Y-%m-%d').force_encoding('UTF-8')}: rating #{entry.im_rating}
 #{entry.title.force_encoding('UTF-8')}#{entry.content.force_encoding('UTF-8')}
         EOS
       end
