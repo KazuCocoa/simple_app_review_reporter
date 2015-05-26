@@ -28,5 +28,5 @@ hipchat.report(app_result, room_id)
 
 
 # License
-
-Please see LICENSE
+MIT License
+(see LICENSE)
