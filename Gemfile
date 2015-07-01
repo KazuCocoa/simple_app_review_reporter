@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'oga', '~> 0.3.4'
+gem 'oga', '~> 1.2'
 gem 'simple-rss', '~> 1.3.1'
