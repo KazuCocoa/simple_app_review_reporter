@@ -14,7 +14,7 @@ class AppReview
     def initialize(application_id, locale)
       @host = 'https://play.google.com'.freeze
       @review_rui = '/store/getreviews'.freeze
-      @review_request = "id=#{application_id}&reviewSortOrder=0&reviewType=1&pageNum=0&hl=#{locale}".freeze
+      @review_request = "id=#{application_id}&xhr=1&reviewSortOrder=0&reviewType=1&pageNum=0&hl=#{locale}".freeze
     end
 
     # @param [Integer] post_count how many you would like to get review comment
